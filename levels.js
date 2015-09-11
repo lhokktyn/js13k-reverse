@@ -86,7 +86,7 @@ var levelMeta = [
                 setTimeout(function () { s.lights[6].state = true; s.viewport.cxtgt = 800 - (s.stage.w * 0.5); }, 8500);
                 setTimeout(function () { s.lights[0].state = s.lights[4].state = s.lights[5].state = false; s.viewport.ztgt = 2; }, 10000);
                 setTimeout(function () {
-                    window.localStorage.tut = true;
+                    window.localStorage.tut_revdark = true;
                     s.lights[6].state = false;
                     setTip("<p>Now your turn ...</p>", 2000, function () {
                         nextLevel(s);

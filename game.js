@@ -100,7 +100,7 @@ window.onload = function () {
 
     loadAssets(function () {
         // If we've already been through the tutorial, don't bother again
-        var lvl = window.localStorage.tut ? 1 : 0;
+        var lvl = window.localStorage.tut_revdark ? 1 : 0;
         prepareLevel(lvl, gameState, function () {
             start(gameState);
         });
@@ -360,10 +360,10 @@ function setupControls (state, cb) {
 };
 
 function teardownControls (state, cb) {
-
     with(document.body) {
         for (var i in controls) {
             removeEventListener(i, controls[i], false);
+            controls[i] = null;
         }
     }
 
@@ -376,7 +376,6 @@ function setTip (html, t, cb) {
     var d = document.getElementsByTagName('div')[0];
     d.innerHTML = html || "";
     d.className = '';
-    console.log(html, t, cb);
     if (t) {
         setTimeout(function () {
             d.className = 'clear';
@@ -395,8 +394,8 @@ function setTip (html, t, cb) {
 function gameLoop () {
     if (gameState.inLoop) {
         requestAnimationFrame(gameLoop);
+        renderGame(gameState);
     }
-    renderGame(gameState);
 };
 
 function nextLevel (state) {
@@ -413,8 +412,8 @@ function endLevel (state, success) {
     if (!success) {
         state.inLoop = false;
         setTip("You're alone, in the dark.", 2000, function () {
-            prepareLevel(1, gameState, function () {
-                start(gameState);
+            prepareLevel(1, state, function () {
+                start(state);
             });
         });
         return;
